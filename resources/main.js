@@ -84,8 +84,10 @@ function fitText() {
       }
     }
 
-    // Check if wrapped text fits in height
+    // Remove height constraint to measure true content height
+    text.style.height = "auto";
     const heightFits = text.scrollHeight <= maxH;
+    text.style.height = maxH + "px";
 
     if (wordsFit && heightFits) {
       lo = mid;
