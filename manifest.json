@@ -1,0 +1,22 @@
+{
+  "name": "bigtext",
+  "short_name": "bigtext",
+  "description": "Type big text on your screen",
+  "start_url": "/bigtext/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "resources/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "resources/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
