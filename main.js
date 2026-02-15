@@ -18,21 +18,28 @@ document.body.addEventListener("touchstart", focusInput);
 
 input.addEventListener("input", () => {
   const val = input.value;
-  text.innerHTML = val
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\n/g, "<br>");
+  text.textContent = val.replace(/\n/g, " ");
   display.classList.toggle("empty", !val);
   fitText();
 });
 
-function updateDisplaySize() {
+function getViewport() {
   const vv = window.visualViewport;
-  if (vv) {
-    display.style.width = vv.width + "px";
-    display.style.height = vv.height + "px";
-  }
+  // Use the smallest available height to account for on-screen keyboard
+  const vvW = vv ? vv.width : window.innerWidth;
+  const vvH = vv ? vv.height : window.innerHeight;
+  return {
+    width: Math.min(vvW, window.innerWidth),
+    height: Math.min(vvH, window.innerHeight),
+    offsetTop: vv ? vv.offsetTop : 0,
+  };
+}
+
+function updateDisplaySize() {
+  const vp = getViewport();
+  display.style.width = vp.width + "px";
+  display.style.height = vp.height + "px";
+  display.style.top = vp.offsetTop + "px";
 }
 
 function fitText() {
@@ -46,9 +53,9 @@ function fitText() {
   }
 
   const pad = 24;
-  const vv = window.visualViewport;
-  const maxW = (vv ? vv.width : window.innerWidth) - pad;
-  const maxH = (vv ? vv.height : window.innerHeight) - pad;
+  const vp = getViewport();
+  const maxW = vp.width - pad;
+  const maxH = vp.height - pad;
 
   // Constrain the text element to available space
   text.style.width = maxW + "px";
@@ -94,6 +101,7 @@ function fitText() {
 window.addEventListener("resize", fitText);
 if (window.visualViewport) {
   window.visualViewport.addEventListener("resize", fitText);
+  window.visualViewport.addEventListener("scroll", updateDisplaySize);
 }
 
 focusInput();
