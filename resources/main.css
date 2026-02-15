@@ -35,7 +35,7 @@ html, body {
 #display.empty #text::before {
   content: "Type here...";
   color: #555;
-  font-size: 2rem;
+  font-size: 16px;
 }
 
 #input {
