@@ -52,7 +52,7 @@ function fitText() {
     return;
   }
 
-  const pad = 24;
+  const pad = 12;
   const vp = getViewport();
   const maxW = vp.width - pad;
   const maxH = vp.height - pad;
